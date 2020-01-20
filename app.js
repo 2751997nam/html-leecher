@@ -4,13 +4,31 @@ const cheerio = require('cherio');
 const fs = require('fs');
 var wget = require('node-wget');
 var urlList = [];
-const TaskQueue = require('./taskQueue');
-const CrawlQueueObj = new TaskQueue(1);
 
-const path = 'san-pham-noi-bat';
 
-const downloadfile = 'gioi-thieu/index.html';
-const downloadUrl = 'https://bizmart-theme.mysapo.net/gioi-thieu';
+links = [
+    'gioi-thieu',
+    'san-pham-noi-bat',
+    'collections/all',
+    'san-pham-moi',
+    'tin-tuc',
+    'lien-he',
+    'mau-sac-loe-loet-danh-cho-phai-manh',
+    ''
+];
+for (var i = 0; i < links.length; i++) {
+    let path = links[i];
+    let downloadUrl = 'https://gentleman-theme.mysapo.net/' + path;
+    if (path == '') {
+         downloadfile = 'index.html';
+    } else {
+         downloadfile = path + '/index.html';
+    }
+    exec('mkdir -p ' + path );
+    downloadOnePage(downloadUrl, downloadfile);
+
+}
+
 
 function downloadStaticFile (url) {
     let retval = url;
@@ -21,8 +39,8 @@ function downloadStaticFile (url) {
         if (url[0] == '/' &&  url[1] == '/') {
             url = 'https:' + url;
         }
-        // console.log("url", url);
         let command = `wget -r ${url} -nH`;
+        console.log(command);
         exec(command);
         let regex = /https:\/\/(.*?)(\/.*)/;
         match = url.match(regex);
@@ -37,46 +55,43 @@ function downloadStaticFile (url) {
 
 }
 
-request(downloadUrl, async function (error, response, body) {
+function downloadOnePage(url, file) {
+    request(url, async function (error, response, body) {
 
-    regex = /(https:|)\/\/bizweb.dktcdn.net(.*?)(.png|.js|.css|.jpg)/;
-    do {
-        try {
-            matches = [...body.match(regex)];
-            url = matches[0];
-            let file = downloadStaticFile(url);
-            // console.log(url, file);
-            body = body.replace(url, file);
-        } catch (e) {
-            url = false;
-        } finally {
+        regex = /(https:|)\/\/bizweb.dktcdn.net(.*?)(\.png|\.js|\.css|\.jpg)/;
+        do {
+            try {
+                matches = [...body.match(regex)];
+                url = matches[0];
+                let file = downloadStaticFile(url);
+                // console.log(url, file);
+                body = body.replace(url, file);
+            } catch (e) {
+                url = false;
+            } finally {
 
-        }
+            }
 
-    } while (url);
+        } while (url);
 
-    regex = /(https:|)\/\/stats.bizweb.vn(.*?)Logging/;
-    do {
-        // console.log('body', body);
-        try {
-            matches = [...body.match(regex)];
-            url = matches[0];
-            let file = downloadStaticFile(url);
-            // console.log(url, file);
-            body = body.replace(url, file);
-        } catch (e) {
-            url = false;
-        } finally {
+        regex = /(https:|)\/\/stats.bizweb.vn(.*?)Logging/;
+        do {
+            // console.log('body', body);
+            try {
+                matches = [...body.match(regex)];
+                url = matches[0];
+                let file = downloadStaticFile(url);
+                // console.log(url, file);
+                body = body.replace(url, file);
+            } catch (e) {
+                url = false;
+            } finally {
 
-        }
+            }
 
-    } while (url);
+        } while (url);
 
-    fs.writeFileSync(downloadfile, body);
-
-    const $ = cheerio.load(body);
-    $('a').each(function(i, elem) {
+        fs.writeFileSync(file, body);
 
     });
-
-});
+}
