@@ -13,12 +13,12 @@ links = [
     'san-pham-moi',
     'tin-tuc',
     'lien-he',
-    'mau-sac-loe-loet-danh-cho-phai-manh',
+    'gear-pro-series-5',
     ''
 ];
 for (var i = 0; i < links.length; i++) {
     let path = links[i];
-    let downloadUrl = 'https://gentleman-theme.mysapo.net/' + path;
+    let downloadUrl = 'https://delta-watch.mysapo.net/' + path;
     if (path == '') {
          downloadfile = 'index.html';
     } else {
@@ -58,7 +58,7 @@ function downloadStaticFile (url) {
 function downloadOnePage(url, file) {
     request(url, async function (error, response, body) {
 
-        regex = /(https:|)\/\/bizweb.dktcdn.net(.*?)(\.png|\.js|\.css|\.jpg)/;
+        regex = /(https:|)\/\/bizweb.dktcdn.net(.*?)(\.svg|\.png|\.js|\.css|\.jpg)/;
         do {
             try {
                 matches = [...body.match(regex)];
