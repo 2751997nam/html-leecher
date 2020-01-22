@@ -13,8 +13,9 @@ links = [
     'san-pham-moi',
     'tin-tuc',
     'lien-he',
-    'gear-pro-series-5',
-    ''
+    'dong-ho-nam',
+    'amazfit-gts-noi-dia',
+    '404'
 ];
 for (var i = 0; i < links.length; i++) {
     let path = links[i];
