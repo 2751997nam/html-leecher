@@ -12,14 +12,13 @@ links = [
     'san-pham-moi',
     'tin-tuc',
     'lien-he',
-    'thoi-trang-nam',
-    'ao-so-mi-the-cosmo-caro-trang',
+    'combo-lau-ky-tu-gia-truyen',
     '404',
     ''
 ];
 for (var i = 0; i < links.length; i++) {
     let path = links[i];
-    let downloadUrl = 'https://ant-market.mysapo.net/' + path;
+    let downloadUrl = 'https://bo-le-ro.vn/' + path;
     if (path == '') {
          downloadfile = 'index.html';
     } else {
@@ -41,7 +40,7 @@ function downloadStaticFile (url) {
         if (url[0] == '/' &&  url[1] == '/') {
             url = 'https:' + url;
         }
-        let command = `wget -r ${url} -nH`;
+        let command = `wget -r ${url} -nc -nH`;
         console.log(command);
         // execSync(command);
         let regex = /https:\/\/(.*?)(\/.*)/;
