@@ -61,10 +61,10 @@ function downloadStaticFile (url) {
                 let file = match[2];
                 file = file.substring(1);
                 let path = file.substring(0, file.lastIndexOf('/'));
-                if (!fs.existsSync(path)) {
-                    fs.mkdirSync(path, { recursive: true });
+                if (!fs.existsSync('theme/' + path)) {
+                    fs.mkdirSync('theme/' + path, { recursive: true });
                 }
-                fs.writeFileSync(file, body);
+                fs.writeFileSync('theme/' + file, body);
             }
         });
         let regex = /https:\/\/(.*?)(\/.*)/;
@@ -113,7 +113,7 @@ function downloadOnePage(url, file) {
             } while (url);
         }
         body = beautify_html(body);
-        fs.writeFileSync(file, body);
+        fs.writeFileSync('theme/' + file, body);
 
     });
 }
