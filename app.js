@@ -1,8 +1,6 @@
 var request = require('request');
 const { exec, spawn, execSync } = require('child_process');
-const cheerio = require('cherio');
-const fs = require('fs');
-var urlList = [];
+const fs = require('fs-extra');
 
 var beautify_js = require('js-beautify'); // also available under "js" export
 var beautify_css = require('js-beautify').css;
@@ -35,6 +33,7 @@ links = [
     },
 ];
 for (var i = 0; i < links.length; i++) {
+    fs.emptyDirSync('theme');
     let downloadfile = links[i].saveName;
     let downloadUrl = 'https://teechip.com/' + links[i].link;
 
