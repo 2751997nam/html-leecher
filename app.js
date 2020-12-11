@@ -12,10 +12,10 @@ const mode = 'fetch';
 // const mode = 'puppeteer';
 
 const links = [
-    {
-        link: '',
-        saveName: 'home.html'
-    },
+    // {
+    //     link: 'services',
+    //     saveName: 'home.html'
+    // },
     // {
     //     link: 'projects/',
     //     saveName: 'search.html'
@@ -25,20 +25,20 @@ const links = [
     //     saveName: 'product.html'
     // },
     // {
-    //     link: 'dich-vu/',
+    //     link: 'blog/',
     //     saveName: 'post-list.html'
     // },
     // {
-    //     link: 'dich-vu-luu-kho/',
+    //     link: 'five-reasons-to-consider-only-hiring-certified-low-voltage-system-designers-for-your-next-project/',
     //     saveName: 'post.html'
     // },
     {
-        link: 'lien-he/',
-        saveName: 'contact.html'
+        link: 'about/',
+        saveName: 'about.html'
     },
 ];
 
-const domain = 'http://vinhomes-smart-city.vn/';
+const domain = 'https://spectrum-engineers.com/';
 const theme = 'sotec';
 
 async function start() {
@@ -204,62 +204,4 @@ async function parseBody(body, file, usePuppeteer = false) {
     fs.writeFileSync('theme/' + file, body);
 }
 
-var linkess = [
-    'http://vinhomes-smart-city.vn/wp-content/themes/bridge/css/webkit_stylesheet.css?ver=4.9.16',
-    'http://vinhomes-smart-city.vn/wp-content/themes/bridge/css/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0',
-    'http://vinhomes-smart-city.vn/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/tabs.min.js?ver=3.17.0',
-    'http://vinhomes-smart-city.vn/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/tabs-accordion.min.js?ver=3.17.0',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/tong-quan-smart-city.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/logo-Sapphire-Parkville.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/sp-4.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/S4.01-1024x575.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/s4.03.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/tong-quan-sp-3.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/s3.01-1.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/s3.02.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/s3.03.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/sp-1-2.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/smar-1.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/smart-2.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/mat-bang-can-studio-1024x748.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/mat-bang-can-1pn1-1024x748.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/mat-bang-can-2pn1-1024x748.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/imperia-smart-city.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2019/05/pdf-e1557288829575.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/mat-bang-can-3pn-1024x796-1024x748.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/05/bang-hang-1552320765.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/td1.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/td2.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/td3.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/td4.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/td5.png',
-    'http://vinhomes-smart-city.vn/wp-content/themes/bridge/css/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/smile_fonts/Defaults/Defaults.woff?rfa9z8',
-    'http://vinhomes-smart-city.vn/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/tabs.min.js?ver=3.17.0',
-    'http://vinhomes-smart-city.vn/wp-content/themes/bridge/css/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0',
-    'http://vinhomes-smart-city.vn/wp-content/plugins/Ultimate_VC_Addons/assets/min-js/tabs-accordion.min.js?ver=3.17.0',
-    'http://vinhomes-smart-city.vn/wp-content/plugins/Ultimate_VC_Addons/assets/min-css/ajax-loader.gif',
-    'http://vinhomes-smart-city.vn/wp-content/plugins/contact-form-7/images/ajax-loader.gif',
-    'http://vinhomes-smart-city.vn/wp-content/plugins/Ultimate_VC_Addons/assets/css/fonts/ult-silk.woff',
-    'http://vinhomes-smart-city.vn/wp-content/plugins/Ultimate_VC_Addons/assets/css/fonts/ult-silk.ttf',
-    'http://vinhomes-smart-city.vn/wp-content/themes/bridge/css/webkit_stylesheet.css?ver=4.9.16',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/sp-4-1024x576.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/tong-quan-smart-city-1024x603.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/s4.03-1024x768.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/tong-quan-sp-3-1024x768.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/vi-tri-vinhomes-smart-1024x576.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/line-smart-1000x68.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/s3.03-1024x768.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/sp-1-2-1024x556.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/smar-1-1024x632.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/s3.01-1-1024x768.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/smart-2-1024x632.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/06/s3.02-1024x768.jpg',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/05/bang-hang-1552320765-1024x470.png',
-    'http://vinhomes-smart-city.vn/wp-content/uploads/2020/03/icon-bang-gia.png'
-];
-
-// start();
-for (let link of linkess) {
-    downloadStaticFile(link);
-}
+start();
