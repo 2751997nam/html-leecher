@@ -12,34 +12,34 @@ const mode = 'fetch';
 // const mode = 'puppeteer';
 
 const links = [
-    // {
-    //     link: 'services',
-    //     saveName: 'home.html'
-    // },
-    // {
-    //     link: 'projects/',
-    //     saveName: 'search.html'
-    // },
-    // {
-    //     link: 'day-dai/',
-    //     saveName: 'product.html'
-    // },
-    // {
-    //     link: 'blog/',
-    //     saveName: 'post-list.html'
-    // },
-    // {
-    //     link: 'five-reasons-to-consider-only-hiring-certified-low-voltage-system-designers-for-your-next-project/',
-    //     saveName: 'post.html'
-    // },
     {
-        link: 'about/',
-        saveName: 'about.html'
+        link: '',
+        saveName: 'home.html'
+    },
+    {
+        link: 'thu-vien',
+        saveName: 'search.html'
+    },
+    {
+        link: 'thu-vien',
+        saveName: 'product.html'
+    },
+    {
+        link: 'blog/',
+        saveName: 'post-list.html'
+    },
+    {
+        link: 'blog/sabudo-chat-luong-quoc-te-cho-bua-an-gia-dinh-viet.html',
+        saveName: 'post.html'
+    },
+    {
+        link: 'lien-he/',
+        saveName: 'contact.html'
     },
 ];
 
-const domain = 'https://spectrum-engineers.com/';
-const theme = 'sotec';
+const domain = 'https://sabudo.vn/';
+const theme = 'sabudo';
 
 async function start() {
     fs.emptyDirSync('theme');
@@ -47,7 +47,7 @@ async function start() {
         let downloadfile = links[i].saveName;
         let downloadUrl = domain + links[i].link;
         if (mode == 'fetch') {
-            downloadOnePage(downloadUrl, downloadfile);
+            await downloadOnePage(downloadUrl, downloadfile);
         } else if (mode == 'puppeteer')  {
             await downloadByPuppeteer(downloadUrl, downloadfile);
         }
@@ -62,7 +62,10 @@ async function downloadStaticFile (url) {
                 url = url.substr(0, url.indexOf("?"))
             }
             if (url[0] == '/' &&  url[1] == '/') {
-                url = 'http:' + url;
+                url = 'https:' + url;
+            }
+            else if (url[0] == '/' &&  url[1] != '/') {
+                url = domain + url;
             }
             let body = await new Promise((resolve, reject) => {
                 request(url, function (error, response, body) {
@@ -85,11 +88,12 @@ async function downloadStaticFile (url) {
                 let file = match[2];
                 file = file.substring(1);
                 let path = file.substring(0, file.lastIndexOf('/'));
-                if (!fs.existsSync('theme/' + path)) {
-                    fs.mkdirSync('theme/' + path, { recursive: true });
+                if (!fs.existsSync('theme/' + theme + '/' + path)) {
+                    console.log('mkdirSync', 'theme/' + theme + '/' + path);
+                    fs.mkdirSync('theme/' + theme + '/' + path, { recursive: true });
                 }
-                fs.writeFileSync('theme/' + file, body);
-                retval = match[2];
+                fs.writeFileSync('theme/' + theme + '/' + file, body);
+                retval = 'themes/' + theme + '/' + file;
             } else {
                 console.log('error', url);
                 retval = url;
@@ -105,8 +109,8 @@ async function downloadStaticFile (url) {
     }
 }
 
-function downloadOnePage(url, file) {
-    fetch(url)
+async function downloadOnePage(url, file) {
+    await fetch(url)
     .then(res => res.text())
     .then(async function (body) {
         await parseBody(body, file);
@@ -176,10 +180,7 @@ async function parseBody(body, file, usePuppeteer = false) {
     let regexes = [
         // /(https:|)\/\/thanglongpack.com.vn([^\"\)\'\,]+)(\.svg|\.png|\.js|\.css|\.jpg)/,
         // /(http:|)\/\/thanglongpack.com.vn([^\"\)\'\,]+)(\.svg|\.png|\.js|\.css|\.jpg)/,
-        /(https:|)\/\/vinhomes-smart-city.vn([^\"\)\'\,]+)(\.svg|\.png|\.js|\.css|\.jpg)/,
-        /(http:|)\/\/vinhomes-smart-city.vn([^\"\)\'\,]+)(\.svg|\.png|\.js|\.css|\.jpg)/,
-        /(https:|)\/\/vinhomessmartcitys.com.vn([^\"\)\'\,]+)(\.svg|\.png|\.js|\.css|\.jpg)/,
-        /(http:|)\/\/vinhomessmartcitys.com.vn([^\"\)\'\,]+)(\.svg|\.png|\.js|\.css|\.jpg)/,
+        /(https:|http:|)(\/\/sabudo.vn)([^\"\)\'\,]+)(\.svg|\.png|\.js|\.css|\.jpg)/,
         // /(https:|)\/\/dbcpu9gznkryx.cloudfront.net([^\"\)\'\,]+)(\.svg|\.png|\.js|\.css|\.jpg)/
     ];
     for (let i = 0; i < regexes.length; i++) {
@@ -188,7 +189,6 @@ async function parseBody(body, file, usePuppeteer = false) {
             try {
                 matches = [...body.match(regex)];
                 url = matches[0];
-                // console.log(url);
                 let temp = await downloadStaticFile(url);
                 // console.log(url, file);
                 body = body.replace(url, temp);
@@ -200,6 +200,7 @@ async function parseBody(body, file, usePuppeteer = false) {
 
         } while (url);
     }
+    body = body.replace('themes/' + theme, '/themes/' + theme);
     body = beautify_html(body);
     fs.writeFileSync('theme/' + file, body);
 }
