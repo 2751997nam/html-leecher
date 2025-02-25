@@ -131,13 +131,13 @@ async function downloadStaticFile (url) {
                         let file = match[2];
                         file = file.substring(1);
                         let path = file.substring(0, file.lastIndexOf('/'));
-                        if (!fs.existsSync('public/' + theme + '/' + path)) {
-                            console.log('mkdirSync', 'public/' + theme + '/' + path);
-                            fs.mkdirSync('public/' + theme + '/' + path, { recursive: true });
+                        if (!fs.existsSync('public/' + path)) {
+                            console.log('mkdirSync', 'public/' + path);
+                            fs.mkdirSync('public/' + path, { recursive: true });
                         }
-                        response.pipe(fs.createWriteStream('public/' + theme + '/' + file));
+                        response.pipe(fs.createWriteStream('public/' + file));
                         
-                        retval = 'themes/' + theme + '/' + file;
+                        retval = '/' + file;
                     } else {
                         console.log('error', url);
                         retval = url;
@@ -293,6 +293,7 @@ async function parseBody(body, file, usePuppeteer = false) {
     // body = body.replaceAll('class="', 'className="');
     // body = body.replaceAll('class=\'', 'className=\'');
     body = beautify_html(body);
+    body = body.replaceAll(`themes/${theme}/${theme}`, '')
     fs.writeFileSync('public/' + file, body);
 }
 
